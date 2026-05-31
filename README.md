@@ -81,7 +81,7 @@ O modelo apresentou uma performance robusta, com alta precisão em todas as 7 cl
 
 ## 8. LINKS DA ENTREGA
 - **Aplicação (Streamlit Cloud):** https://tech-challenge-fase4-obesidade-4uhvcwvpnybzjrpewcpu2z.streamlit.app/
-- **Repositório GitHub:** 
+- **Repositório GitHub:** https://github.com/Eduardoamaral23/tech-challenge-fase4-obesidade
 
 ---
 
