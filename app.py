@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 import plotly.express as px
 
-# --- DICIONÁRIOS DE TRADUÇÃO ---
+# --- DICIONÁRIOS DE TRADUÇÃO (Interface p/ Modelo) ---
 map_gender = {'Feminino': 'Female', 'Masculino': 'Male'}
 map_yes_no = {'Sim': 'yes', 'Não': 'no'}
 map_caec = {'Não': 'no', 'Às vezes': 'Sometimes', 'Frequentemente': 'Frequently', 'Sempre': 'Always'}
@@ -34,7 +34,7 @@ def carregar_modelos():
 @st.cache_data
 def carregar_dados():
     df = pd.read_csv('Obesity.csv')
-    # Traduzindo colunas chave para o Dashboard
+    # Traduzindo colunas para o Dashboard ficar em PT
     df['Obesity'] = df['Obesity'].replace(dicionario_traducao)
     df['Gender'] = df['Gender'].replace({'Female': 'Feminino', 'Male': 'Masculino'})
     return df
@@ -59,7 +59,7 @@ with aba_predicao:
             mtrans_br = st.selectbox("Transporte Habitual", list(map_mtrans.keys()))
         with col2:
             family_history_br = st.selectbox("Histórico familiar?", list(map_yes_no.keys()))
-            favc_br = st.selectbox("Alimentos calóricos?", list(map_yes_no.keys()))
+            favc_br = st.selectbox("Consome alimentos calóricos?", list(map_yes_no.keys()))
             fcvc = st.slider("Consumo de vegetais (1-3)", 1, 3, 2)
             ncp = st.slider("Refeições principais", 1, 4, 3)
             caec_br = st.selectbox("Lanches entre refeições?", list(map_caec.keys()))
@@ -86,13 +86,32 @@ with aba_predicao:
             st.info(f"**IMC:** {weight / (height ** 2):.2f} kg/m²")
 
 with aba_dashboard:
-    st.header("Análise de Dados Históricos")
-    col_graf1, col_graf2 = st.columns(2)
-    with col_graf1:
-        st.subheader("Distribuição por Obesidade")
-        st.plotly_chart(px.pie(df_dados, names='Obesity', hole=0.3), use_container_width=True)
-    with col_graf2:
-        st.subheader("Idade vs Obesidade")
-        st.plotly_chart(px.box(df_dados, x='Obesity', y='Age', color='Gender'), use_container_width=True)
-    st.subheader("Histórico Familiar")
-    st.plotly_chart(px.histogram(df_dados, x='Obesity', color='family_history', barmode='group'), use_container_width=True)
+    st.header("📊 Painel Analítico")
+    
+    # Filtros na Barra Lateral
+    st.sidebar.header("Filtros de Análise")
+    generos = ["Todos"] + sorted(df_dados['Gender'].unique().tolist())
+    filtro_genero = st.sidebar.selectbox("Gênero", generos)
+    
+    classes = ["Todos"] + sorted(df_dados['Obesity'].unique().tolist())
+    filtro_classe = st.sidebar.selectbox("Nível de Obesidade", classes)
+    
+    filtro_idade = st.sidebar.slider("Faixa Etária", int(df_dados['Age'].min()), int(df_dados['Age'].max()), (14, 60))
+
+    # Aplicando Filtros
+    df_filtrado = df_dados.copy()
+    if filtro_genero != "Todos": df_filtrado = df_filtrado[df_filtrado['Gender'] == filtro_genero]
+    if filtro_classe != "Todos": df_filtrado = df_filtrado[df_filtrado['Obesity'] == filtro_classe]
+    df_filtrado = df_filtrado[(df_filtrado['Age'] >= filtro_idade[0]) & (df_filtrado['Age'] <= filtro_idade[1])]
+
+    # Gráficos
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Distribuição por Nível")
+        st.plotly_chart(px.pie(df_filtrado, names='Obesity', hole=0.3), use_container_width=True)
+    with col2:
+        st.subheader("Risco: Consumo de Calóricos (FAVC)")
+        st.plotly_chart(px.histogram(df_filtrado, x='Obesity', color='FAVC', barmode='group'), use_container_width=True)
+
+    st.subheader("Amostra dos Dados Filtrados")
+    st.dataframe(df_filtrado.head(10), use_container_width=True)
