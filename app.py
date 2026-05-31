@@ -71,11 +71,25 @@ with aba_predicao:
                 'BMI': imc
             }])
             
+            # Dicionário de tradução do inglês para o português
+            dicionario_traducao = {
+                'Insufficient_Weight': 'Abaixo do Peso',
+                'Normal_Weight': 'Peso Normal',
+                'Overweight_Level_I': 'Sobrepeso Nível I',
+                'Overweight_Level_II': 'Sobrepeso Nível II',
+                'Obesity_Type_I': 'Obesidade Tipo I',
+                'Obesity_Type_II': 'Obesidade Tipo II',
+                'Obesity_Type_III': 'Obesidade Tipo III'
+            }
+            
             # Fazendo a predição
             predicao = modelo.predict(dados_entrada)[0]
-            resultado_texto = tradutor.inverse_transform([predicao])[0]
+            resultado_ingles = tradutor.inverse_transform([predicao])[0]
             
-            st.success(f"### Diagnóstico Preditivo: {resultado_texto.replace('_', ' ')}")
+            # Traduzindo o resultado
+            resultado_portugues = dicionario_traducao.get(resultado_ingles, resultado_ingles)
+            
+            st.success(f"### Diagnóstico Preditivo: {resultado_portugues}")
             st.info(f"**IMC Calculado:** {imc:.2f} kg/m²")
 
 # ==========================================
