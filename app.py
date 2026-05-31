@@ -3,6 +3,24 @@ import pandas as pd
 import joblib
 import plotly.express as px
 
+# 1. Tradução
+mapeamento_transporte = {
+    'Transporte Público': 'Public_Transportation',
+    'Caminhando': 'Walking',
+    'Carro': 'Automobile',
+    'Moto': 'Motorbike',
+    'Bicicleta': 'Bike'
+}
+
+# 2. Lista de opções para o selectbox
+opcoes_exibidas = list(mapeamento_transporte.keys())
+
+# 3. O usuário escolhe o nome
+escolha_usuario = st.selectbox("Selecione o meio de transporte:", opcoes_exibidas)
+
+# 4. Converte para o que a IA entende
+valor_para_o_modelo = mapeamento_transporte[escolha_usuario]
+
 # Configuração da página
 st.set_page_config(page_title="Predição de Obesidade", page_icon="🏥", layout="wide")
 
