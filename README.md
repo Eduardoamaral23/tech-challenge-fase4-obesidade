@@ -85,7 +85,18 @@ O modelo apresentou uma performance robusta, com alta precisão em todas as 7 cl
 
 ---
 
-## 9. CHECKLIST FINAL
+## 9. PRINCIPAIS TECNOLOGIAS
+streamlit==1.54.0
+altair<6
+pandas
+numpy
+scikit-learn
+joblib
+plotly
+
+---
+
+## 10. CHECKLIST FINAL
 [X] Pipeline de ML completo  
 [X] Acurácia > 75% (resultado: 97,87%)  
 [X] Deploy em Streamlit  
