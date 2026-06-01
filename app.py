@@ -120,7 +120,7 @@ if pagina == "🔮 Predição Clínica":
 # PÁGINA 2: PAINEL ANALÍTICO
 # ==========================================
 elif pagina == "📊 Painel Analítico":
-    st.title("📊 Dashboard de Análise Epidemiológica")
+    st.title("📊 Dashboard de Análise")
     st.markdown("---")
     
     # Filtros Exclusivos desta página
