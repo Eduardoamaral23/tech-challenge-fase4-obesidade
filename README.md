@@ -105,5 +105,5 @@ plotly
 [X] Documentação completa
 
 ## 11. Versão
-Versao: 1.0
-Data: 31 de Maio de 2026
+- **Versao:** 1.0
+- **Data:** 31 de Maio de 2026
