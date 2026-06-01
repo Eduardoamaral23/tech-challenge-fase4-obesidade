@@ -3,5 +3,5 @@ altair<6
 pandas==2.2.2
 numpy==2.0.2
 scikit-learn==1.6.1
-joblib
+joblib==1.5.3
 plotly==5.24.1
