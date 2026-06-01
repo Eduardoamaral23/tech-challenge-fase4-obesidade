@@ -34,6 +34,8 @@ def carregar_modelos():
 @st.cache_data
 def carregar_dados():
     df = pd.read_csv('Obesity.csv')
+
+    df['Gender'] = df['Gender'].replace({'Female': 'Feminino', 'Male': 'Masculino'})
     
     # Criando o IMC se não existir
     if 'BMI' not in df.columns:
