@@ -103,3 +103,7 @@ plotly
 [X] Painel analítico com insights  
 [X] Repositório GitHub com código e artefatos  
 [X] Documentação completa
+
+## 11. Versão
+Versao: 1.0
+Data: 31 de Maio de 2026
