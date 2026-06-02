@@ -27,7 +27,7 @@ st.set_page_config(page_title="Predição de Obesidade", page_icon="🏥", layou
 
 @st.cache_resource
 def carregar_modelos():
-    modelo = joblib.load('modelo_obesidade.joblib')
+    modelo = joblib.load('modelo.pkl')
     tradutor = joblib.load('tradutor_classes.joblib')
     return modelo, tradutor
 
