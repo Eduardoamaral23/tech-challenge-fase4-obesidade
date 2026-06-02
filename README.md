@@ -52,7 +52,7 @@ O modelo apresentou uma performance robusta, com alta precisão em todas as 7 cl
 
 ## 4. ESTRUTURA DE ARQUIVOS
 - `app.py`: Aplicação principal (Streamlit).
-- `modelo.pkl`: Modelo treinado.
+- `modelo_obesidade.joblib`: Modelo treinado.
 - `Obesity.csv`: Base de dados original.
 - `requirements.txt`: Dependências do projeto.
 - `README.md`: Documentação.
